@@ -1,0 +1,15 @@
+Adam Forestier
+May 20, 2023
+
+DBMS = Database Management System
+RDBMS = Relational Database Management System
+SQL = Structured Query Language
+
+5 types of databases
+    1. Relational
+    2. Document (mongodb, couchdb, etc) - big document containing related data. Good for scability
+    3. Key Value (Redis, Dynamo, etc) - one of the simplest ways to access data
+    4. Graph (neo) - complex; good for data connected in different ways. Least used because so specific
+    5. Wide Columnar - New; created by Google (Cassandra)
+
+Database - system, hardware and software, used to organize and store data

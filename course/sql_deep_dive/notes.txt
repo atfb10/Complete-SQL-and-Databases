@@ -26,3 +26,12 @@ DML (Data Modification Language)
     * CALL 
     * EXPLAIN PLAN
     * LOCK TABLE
+
+SQL Function - Set of steps that returns a single value
+    * Aggregate - Aggregate all data and return single value.
+        > AVG()
+        > COUNT()
+        > MIN()
+        > MAX()
+        > SUM()
+    * Scalar - Run against each row and return output for each row. EXAMPLE. count

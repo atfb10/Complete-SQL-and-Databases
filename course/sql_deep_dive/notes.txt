@@ -1,0 +1,28 @@
+Adam Forestier
+May 22, 2023
+
+SQL Commands
+
+DCL (Data Control Language)
+    * Grant 
+    * Revoke
+
+DQL (Data Query Language)
+    * SELECT
+
+DDL (Data Defination Language)
+    * CREATE
+    * ALTER
+    * DROP 
+    * RENAME
+    * TRUNCATE
+    * COMMENT
+
+DML (Data Modification Language)
+    * INSERT
+    * UPDATE
+    * DELETE
+    * MERGE
+    * CALL 
+    * EXPLAIN PLAN
+    * LOCK TABLE

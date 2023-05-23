@@ -40,3 +40,11 @@ SQL Function - Set of steps that returns a single value
         > MAX()
         > SUM()
     * Scalar - Run against each row and return output for each row. EXAMPLE. count
+
+Comparison Operators
+    * >
+    * >=
+    * <
+    * <=
+    * =
+    * !=

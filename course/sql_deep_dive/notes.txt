@@ -1,0 +1,50 @@
+Adam Forestier
+May 22, 2023
+
+"" - tables, columns
+'' - text
+
+SQL is case insenstive if you use ""
+
+SQL Commands
+
+DCL (Data Control Language)
+    * Grant 
+    * Revoke
+
+DQL (Data Query Language)
+    * SELECT
+
+DDL (Data Defination Language)
+    * CREATE
+    * ALTER
+    * DROP 
+    * RENAME
+    * TRUNCATE
+    * COMMENT
+
+DML (Data Modification Language)
+    * INSERT
+    * UPDATE
+    * DELETE
+    * MERGE
+    * CALL 
+    * EXPLAIN PLAN
+    * LOCK TABLE
+
+SQL Function - Set of steps that returns a single value
+    * Aggregate - Aggregate all data and return single value.
+        > AVG()
+        > COUNT()
+        > MIN()
+        > MAX()
+        > SUM()
+    * Scalar - Run against each row and return output for each row. EXAMPLE. count
+
+Comparison Operators
+    * >
+    * >=
+    * <
+    * <=
+    * =
+    * !=

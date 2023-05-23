@@ -1,0 +1,73 @@
+Adam Forestier
+May 20, 2023
+
+Query = SQL Statement
+    - Question we want to ask the databases
+
+Operations 
+    * = All
+    FROM = this table
+    WHERE = conditional filtering
+
+Terms
+    - clause: each line
+    - identifier: name of table, column, etc
+    - expression: meets condition
+
+Imperative vs Declarative
+    - Declaritive: What will happen?
+    - Imperative: How will it happen?
+    - Declarative Example:
+        > SQL
+    - Imperative Example:
+        > Java
+    - Both Example:
+        > Python
+
+SQL Standards:
+    - SQL is highly standardized
+    - Committee meets yearly from each major RDBMS company to agree to standards
+
+Model - way data will be structured
+
+Hierarchal Model
+    - Store data in tree-like structure 
+    - Outdated, because of inefficiency
+    - Each child can have multiple children, but only 1 parent (1 to many relationship)
+    - When parent deleted, child goes away. Data is highly coupled 
+
+Networking Model
+    - Expanded on Hierarchal model; allowing for many-to-many relationships
+    - Relationships become complex
+
+Relational Model
+    - Relation Schema
+    - Attribute > Another name for column
+    - Degree > Degree of relation is the collection of columns (name of all the columns)
+    - Cardinality > Collection of rows; the collection of all rows in a table
+    - Tuple > Another name for row
+    - Column > Attribute of a table. Holds specific data for the table object
+    - Row > Single representation or "instance" of data for object of table
+    - Relation Key
+    - Domain (Constraint) > What type of data a column is allowed to store
+    - Table > Representation of object
+    - Relation Instance
+
+DBMS - Database Management System
+    C - Create
+    R - Read 
+    U - Update 
+    D - Delete
+
+RDBMS - Relational Database Management System
+
+Primary Keys
+    > Uniquely identifies row in table
+
+Foreign Keys
+    > Foreign Key references the primary key of a different table
+    > Is a new column in table that manages relationship between two tables
+
+OLTP VS OLAP
+    - Online Transactional Processing: Optimized for transactional processing and real-time updates (Supports Day to Day)
+    - Online Analytical Processing: Optimized for complex data analysis and reporting (Supports Analysis)

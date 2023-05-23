@@ -1,6 +1,11 @@
 Adam Forestier
 May 22, 2023
 
+"" - tables, columns
+'' - text
+
+SQL is case insenstive if you use ""
+
 SQL Commands
 
 DCL (Data Control Language)

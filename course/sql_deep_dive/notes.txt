@@ -48,3 +48,26 @@ Comparison Operators
     * <=
     * =
     * !=
+
+Operator Precedence (in order)
+    1. Parentheses
+    2. Arithmetic Operators
+    3. Concatenation Operators
+    4. Comparison Conditions
+    5. IS NULL, LIKE, NOT IN, IN, etc.
+    6. NOT 
+    7. AND
+    8. OR
+
+    * If the operators have equal precedence, then the operators ar evaluated directionally, from left to right or right to left
+        > All are left to right except:
+            1. addition & subtraction
+            2. NOT 
+        > When in doubt, use Parentheses!!!
+        > Example of Danger: WHERE gender = 'F' AND state = 'OR' OR state = 'NY';
+            # THIS WILL return where gender is female and in new york, or anyone who lives in New York.
+        > Example of fixed: WHERE gender = 'F' AND (state = 'OR' OR state = 'NY');
+            # This will return females from oregon and new york
+
+MISC Notes
+    * Dates must go in single quotes ''

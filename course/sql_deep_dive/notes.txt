@@ -107,5 +107,44 @@ LIKE - Case sensistive pattern matching
 ILIKE - Case insentive pattern matching
     * Otherwise, same as LIKE 
 
+UTC
+    * Universal way to measure time - Standard, not a time zone
+    * ALWAYS use UTC
+        > It is the standard
+        > It can always be calculated for each individual 
+        > ALTER USER postgres SET timezone='UTC';
+    * POSTGRES by defualt assumes UTC is the time
+    * Shares the same time as GMT (Greenwich Mean Time)
+
+DateTime
+    * POSTGRESQL uses ISO-8601 for date formatting. ALWAYS use this standard for storing dates in data base
+        > YYYY-MM-DDTHH:MM:SS
+        > 2017-08-17T12:47:16+02:00 (+02:00 depicts difference from UTC)
+    * Get current date
+        > SELECT NOW()::date;
+        > SELECT CURRENT_DATE;
+    * Format date:
+        > SELECT TO_CHAR(CURRENT_DATE, 'dd/mm/yyyy');
+    * Subtracting dates returns the difference in days
+    * Cast to date: 
+        > SELECT date '1800/01/01'
+        > Also will format it as ISO-8601 date format
+    * Calculate Age:
+        > SELECT AGE(date, '1800/01/01'); -> Age from today to date argument
+        > SELECT(date '1800/01/01', date '1995/11/11') -> Age between arguments
+    * Get specific part of date
+        > SELECT EXTRACT (DAY FROM date '1992/11/13') AS "DAY" -> 13
+        > SELECT EXTRACT (MONTH FROM date '1992/11/13') AS "MONTH" -> 11
+    * Truncate day, month or year
+        > SELECT DATE_TRUNC('year', date '1992/11/13') -> 1992-01-01
+    * Interval
+        > Identifiers - Years, Months, Days, Hours, Minutes
+        > SELECT *
+          FROM orders
+          WHERE purchaseDate <= now() - interval '30 days';
+
+Timestamp - date w/ time & timezone information
+    * Can create Timestamp column that does or does not store time zone 
+
 MISC Notes
     * Dates must go in single quotes ''

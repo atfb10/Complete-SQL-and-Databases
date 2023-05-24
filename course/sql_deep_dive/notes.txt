@@ -146,5 +146,8 @@ DateTime
 Timestamp - date w/ time & timezone information
     * Can create Timestamp column that does or does not store time zone 
 
+DISTINCT - Remove duplicates
+    > Keeps 1 row for each duplicate
+
 MISC Notes
     * Dates must go in single quotes ''

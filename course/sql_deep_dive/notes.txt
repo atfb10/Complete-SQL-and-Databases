@@ -86,5 +86,7 @@ Three-Valued Logic
     * Null does NOT equal Null (Null is unknown!)
     * Use IS NULL to check if something is null. = Null WILL NOT WORK!!!
 
+IN - Check if value is in list of value
+
 MISC Notes
     * Dates must go in single quotes ''

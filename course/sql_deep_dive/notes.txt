@@ -48,3 +48,45 @@ Comparison Operators
     * <=
     * =
     * !=
+
+Operator Precedence (in order)
+    1. Parentheses
+    2. Arithmetic Operators
+    3. Concatenation Operators
+    4. Comparison Conditions
+    5. IS NULL, LIKE, NOT IN, IN, etc.
+    6. NOT 
+    7. AND
+    8. OR
+
+    * If the operators have equal precedence, then the operators ar evaluated directionally, from left to right or right to left
+        > All are left to right except:
+            1. addition & subtraction
+            2. NOT 
+        > When in doubt, use Parentheses!!!
+        > Example of Danger: WHERE gender = 'F' AND state = 'OR' OR state = 'NY';
+            # THIS WILL return where gender is female and in new york, or anyone who lives in New York.
+        > Example of fixed: WHERE gender = 'F' AND (state = 'OR' OR state = 'NY');
+            # This will return females from oregon and new york
+
+Empty Values
+    * Shows <NULL> or null for empty values
+    * By default, fields are nullable
+    * Be mindful about what is made nullable
+    * NO MATTER WHAT YOU DO WITH NULL, IT WILL ALWAYS BE NULL (subtract, add, concatenation, etc)
+    * IS - allows you to filter on values that are null, not null, TRUE or FALSE
+    * IMPORTANT: != does not work on null values
+    * "coalesce" replaces null values
+        > EXAMPLE: SELECT coalesce(<column> 'Empty') as <column_alias> FROM <table>
+    * Coalesce returns the first non-null value in a list
+
+Three-Valued Logic
+    * Each expression can have 3 values
+    * True, False or NULL
+    * Null does NOT equal Null (Null is unknown!)
+    * Use IS NULL to check if something is null. = Null WILL NOT WORK!!!
+
+IN - Check if value is in list of value
+
+MISC Notes
+    * Dates must go in single quotes ''

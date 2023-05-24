@@ -69,5 +69,16 @@ Operator Precedence (in order)
         > Example of fixed: WHERE gender = 'F' AND (state = 'OR' OR state = 'NY');
             # This will return females from oregon and new york
 
+Empty Values
+    * Shows <NULL> or null for empty values
+    * By default, fields are nullable
+    * Be mindful about what is made nullable
+    * NO MATTER WHAT YOU DO WITH NULL, IT WILL ALWAYS BE NULL (subtract, add, concatenation, etc)
+    * IS - allows you to filter on values that are null, not null, TRUE or FALSE
+    * IMPORTANT: != does not work on null values
+    * "coalesce" replaces null values
+        > EXAMPLE: SELECT coalesce(<column> 'Empty') as <column_alias> FROM <table>
+    * Coalesce returns the first non-null value in a list
+
 MISC Notes
     * Dates must go in single quotes ''

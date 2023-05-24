@@ -80,5 +80,11 @@ Empty Values
         > EXAMPLE: SELECT coalesce(<column> 'Empty') as <column_alias> FROM <table>
     * Coalesce returns the first non-null value in a list
 
+Three-Valued Logic
+    * Each expression can have 3 values
+    * True, False or NULL
+    * Null does NOT equal Null (Null is unknown!)
+    * Use IS NULL to check if something is null. = Null WILL NOT WORK!!!
+
 MISC Notes
     * Dates must go in single quotes ''

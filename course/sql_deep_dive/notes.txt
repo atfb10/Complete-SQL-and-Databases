@@ -147,7 +147,15 @@ Timestamp - date w/ time & timezone information
     * Can create Timestamp column that does or does not store time zone 
 
 DISTINCT - Remove duplicates
-    > Keeps 1 row for each duplicate
+    > Keeps 1 row for each 
+    
+ORDER - ORDER BY 
+    * ORDER BY <column> ASC;
+    * ORDER BY <column> DESC;
+    * By default, it is ASC.
+    * Must specify for each column if wanting to sort by descending for multiple columns (ORDER BY column 1 DESC, column2 DESC;)
+    * Can order by function calls as well
+        > ORDER BY LENGTH(name)
 
 MISC Notes
     * Dates must go in single quotes ''

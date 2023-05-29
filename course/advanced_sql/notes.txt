@@ -1,0 +1,15 @@
+Adam Forestier
+May 29, 2023
+
+Group By
+    * Summarize or aggregate data by groups
+    * Group By splits data into groups so we can apply functions against the group rather than the entire table
+    * Split by groups, apply aggregate functions, combines group with single value returned from aggregate function
+    * Order of Operations: SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER
+    * FEYMAN: Group By - groups data by a column, or columns. Then a function is run on another column or columns. The result of the function is matched with the column designated as the group
+
+HAVING
+    * Filter by groups
+    * Having applies filters to a group as a whole -> Can filter on the output of the aggregate 
+    * Can have HAVING and WHERE in same query. HAVING filters on group, WHERE filters on row
+    * FEYMAN: Having = allows one to filter by the results of a group by

@@ -157,5 +157,26 @@ ORDER - ORDER BY
     * Can order by function calls as well
         > ORDER BY LENGTH(name)
 
+Inner Join
+    * Intersection between table A and B
+    * Always consider what you are trying to select and what you are trying to join (left table and right table)
+    * Results come back unsorted -> always sort by ORDER BY 
+    * Can use ON statement to filter results being joined
+
+Self Join
+    * Joining a table to itself
+    * Usually can be done when a table has a foreign key refrencing a primary key
+    * Written the same way as a Inner Join
+
+Outer Join
+    * Union between table A and B
+    * All rows, even ones w/out match
+    * LEFT JOIN contains all on left table and match on right
+    * RIGHT JOIN contains all on right table and match on LEFT
+    * Any value that does not match is made to be NULL
+
+Uncommon Joins
+    * CROSS JOIN - creates combination of every row (Cartesian Product)
+
 MISC Notes
     * Dates must go in single quotes ''

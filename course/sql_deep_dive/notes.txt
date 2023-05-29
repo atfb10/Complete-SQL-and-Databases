@@ -178,5 +178,9 @@ Outer Join
 Uncommon Joins
     * CROSS JOIN - creates combination of every row (Cartesian Product)
 
+USING
+    * Replacing ON for simple primary key to foreign key join
+    Example: SELECT e.emp_no, e.first_name, de.dept_no FROM employees as e INNER JOIN dept_emp AS de USING(emp_no)
+
 MISC Notes
     * Dates must go in single quotes ''

@@ -1,0 +1,11 @@
+Adam Forestier
+May 29, 2023
+
+Group By
+    * Summarize or aggregate data by groups
+    * Group By splits data into groups so we can apply functions against the group rather than the entire table
+    * Split by groups, apply aggregate functions, combines group with single value returned from aggregate function
+    * Order of Operations: FROM -> WHERE -> GROUP BY -> SELECT -> ORDER
+    * FEYMAN: Group By - groups data by a column, or columns. Then a function is run on another column or columns. The result of the function is matched with the column designated as the group
+
+HAVING 

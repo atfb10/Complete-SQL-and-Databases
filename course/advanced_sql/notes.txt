@@ -13,3 +13,169 @@ HAVING
     * Having applies filters to a group as a whole -> Can filter on the output of the aggregate 
     * Can have HAVING and WHERE in same query. HAVING filters on group, WHERE filters on row
     * FEYMAN: Having = allows one to filter by the results of a group by
+
+UNION
+    * Combining multiple SELECT statements
+    * UNION ALL - statement that does the same thing as UNION, except - it does NOT remove duplicate records
+    * Example:
+        SELECT NULL AS "prod_id", sum(ol.quantity)
+        FROM orderlines as ol
+
+        UNION
+
+        SELECT prod_id as "prod_id", sum(ol.quantity)
+        FROM orderlines as ol
+        GROUP by prod_id
+        order by prod_id DESC;
+
+GROUPING SETS
+    * KEY: Subclause of GROUP BY that allows you to define multiple groupings in a single query
+    * Does exact same thing as UNION, but less syntax
+    * Example:
+        SELECT prod_id AS "prod_id", orderlineid as "orderlineid", sum(quantity) as "Quantity Sold"
+        FROM orderlines
+        GROUP BY
+            GROUPING SETS (
+                (),
+                (prod_id),
+                (orderlineid)
+            )
+        ORDER BY prod_id DESC, orderlineid DESC;
+    * () is total! 
+    * FEYMAN: GROUPING SETS allow you to create multiple sets of groups in a single query! 
+
+ROLLUP
+    * Makes all combinations of EXTRACT of a group!
+    * EXAMPLE:
+        SELECT EXTRACT(YEAR FROM orderdate) AS "YEAR",
+            EXTRACT(MONTH FROM orderdate) as "Month",
+            EXTRACT(DAY from orderdate) AS "DAY",
+            sum(quantity) AS "Quantity Ordered"
+        FROM orderlines
+        GROUP BY
+            ROLLUP (
+                EXTRACT(YEAR FROM orderdate),
+                EXTRACT(MONTH FROM orderdate),
+                EXTRACT(DAY FROM orderdate)
+            )
+        ORDER BY 
+                EXTRACT(YEAR FROM orderdate),
+                EXTRACT(MONTH FROM orderdate),
+                EXTRACT(DAY FROM orderdate);
+
+Window Functions
+    * How one can apply functions against a set of rows related to the current row
+    * DEFINITION: Create a new column based on functions performed on a subset of the data
+    * Syntax: window_function(arg1, arg2, ...) OVER (
+        [PARTITION BY partition_expression]
+        [ORDER BY sort_expression [ASC | DESC] [NULLS {FIRST | LAST}]]
+    )
+    * They are slow - they run over and over against against the set of data
+    * Windows apply against filters, but NOT against limits
+
+    * PARTITION BY
+        > Divide rows into groups to apply the function against 
+        > It is optional
+        > EXAMPLE: show each employee vs the average salary for their department
+          SELECT *,
+                 AVG(s.salary) OVER (
+                    PARTITION BY d.dept_name
+                 ) AS "Average Salary by Department"
+          FROM salaries as s
+          JOIN dept_emp AS de USING(emp_no)
+          JOIN departments AS d USING(dept_no)
+
+    * FRAMING
+        > When using a FRAME clause in a window function we can create a sub-range
+        > ROWS or RANGE - whether you want to use a range or rows as a frame
+        > UNBOUNDED PRECEDING - Rows before the current one
+        > UNBOUNDED FOLLOWING - Rows after the current one
+        > UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING - Returns all before and after
+        > CURRENT ROW - your current row
+        > With ORDER BY 
+            # By defaut the framing is usually everything before the current row and the current row
+        > Without ORDER BY 
+            # All rows
+
+    * Functions
+        > SUM/MIN/MAX/AVG - gets value for all records in the partition
+            # Example:
+                SELECT
+                customerid,
+                netamount,
+                orderdate,
+                SUM(netamount) OVER (
+                    PARTITION by customerid
+                    order by orderid
+                    RANGE BETWEEN unbounded preceding and unbounded following
+                ) AS "Cumulative Order Amount by Customer"
+            FROM orders
+            ORDER BY customerid;
+        > FIRST_VALUE - returns the first value in the partition
+            # Example: I want to know how my price compares to teh item with the lowest price in the same category
+                SELECT prod_id, 
+                    price, 
+                    category,
+                    first_value(price) OVER (
+                        PARTITION BY category
+                        ORDER BY price
+                        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+                    ) AS "Cheapest Product in Category"
+                FROM products
+                ORDER BY category; 
+            # Easier Solution
+                SELECT prod_id, 
+                    price, 
+                    category,
+                    MIN(price) OVER (
+                        PARTITION BY category
+                    ) AS "Cheapest Product in Category"
+                FROM products
+                ORDER BY category; 
+        > LAST_VALUE - returns the last value in the partition
+            # Example: I want to know how my price compares to the item with the highest price in the same category
+                SELECT 
+                    prod_id,
+                    title,
+                    category,
+                    price,
+                    last_value(price) OVER ( 
+                        PARTITION BY category
+                        ORDER BY price
+                        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+                    ) AS "Most expensive Price of product in category"
+                FROM products
+                ORDER BY category;
+        > NTH_VALUE - Returns the "nth row" value in an ordered partition
+        > PERCENT_RANK - Returns the relative rank of the current row (rank - 1) / (total rows - 1)
+        > RANK - Rank the current row within its partition with gaps 
+        > ROW_NUMBER - number the current row within its partition starting from 1 REGARDLESS OF FRAMING
+            > EXAMPLE: Show ranking of price per category
+                SELECT
+                    category,
+                    title,
+                    price,
+                    row_number() OVER(
+                        PARTITION BY category
+                        order by price DESC
+                        range between UNBOUNDED PRECEDING AND UNBOUNDED following 
+                    ) as "Price Ranking in Cateogry"
+                FROM products
+                order by category;
+        > LAG/LEAD - Access values from teh previous or next row
+    
+    * FEYMAN: Window Functions allow one to apply functions by row value
+
+Conditionals
+    * Example:
+        SELECT a,
+            CASE WHEN a=1 THEN 'one'
+                 WHEN a=2 THEN 'two'
+                 ELSE 'other'
+            END
+        FROM test;
+
+NULL IF 
+    * If value 1 = value 2, return NULL
+    * IF sides do not match, return left side
+    * NULLIF ('abc', 'def') -> abc

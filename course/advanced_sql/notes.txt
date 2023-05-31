@@ -163,4 +163,19 @@ Window Functions
                 FROM products
                 order by category;
         > LAG/LEAD - Access values from teh previous or next row
-    * FEYMAN: 
+    
+    * FEYMAN: Window Functions allow one to apply functions by row value
+
+Conditionals
+    * Example:
+        SELECT a,
+            CASE WHEN a=1 THEN 'one'
+                 WHEN a=2 THEN 'two'
+                 ELSE 'other'
+            END
+        FROM test;
+
+NULL IF 
+    * If value 1 = value 2, return NULL
+    * IF sides do not match, return left side
+    * NULLIF ('abc', 'def') -> abc

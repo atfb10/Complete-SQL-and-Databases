@@ -1,6 +1,8 @@
 Adam Forestier
 May 29, 2023
 
+EXPLAIN ANALYZE - can put before any query and it shows information about the query such as execution time
+
 Group By
     * Summarize or aggregate data by groups
     * Group By splits data into groups so we can apply functions against the group rather than the entire table
@@ -213,4 +215,62 @@ VIEWS
         WHERE from_date = lsc.max
         ORDER BY s.emp_no;
 
-    * FEYMAN: 
+    * FEYMAN: Views allow one to save a new table from a query, and allow one to make queries against it
+
+Indexing
+    * Index - construct to improve querying performance
+            - pointer to data in a table
+            - can think of it like a table of contents to find where a piece of data is
+        > It does slow down data insertion and updates
+
+    * Types:
+        > single-column
+            # Most frequently used column in queries
+            # Retrieving data that satisfies one condition
+            # EXAMPLE
+                CREATE INDEX idx_name
+                ON city("name");
+        > multi-column
+            # Most frequently uses columns in queries
+            # Retrieving data that satisfies multiple conditions
+        > unique
+            # ALWAYS use when column contains only unique values
+        > partial
+            # Over subset of a table
+            CREATE INDEX partial_idx_code
+            ON city(countrycode) WHERE countrycode IN('TUN','BE','NL');
+        > implicit
+            # indexes done by default (primary key, unique key - foreign key)
+
+    * Syntax
+        > CREATE <index type> INDEX name
+          ON <table> (column1, column2, ...)
+        > DROP INDEX name
+
+    * When to use:
+        1. FOREIGN KEYS
+        2. PRIMARY KEYS AND UNIQUE COLUMNS 
+        3. Columns that end up in the ORDER BY/WHERE clause often
+
+    * When not to use:
+        1. Don't do it, just to do it
+        2. Small tables
+        3. Tables that are updated frequently
+        4. Columns that contain null values 
+        5. Columns that have large values
+
+    * Index Algorithms - Each index type uses a different algorithm
+        > Syntax
+            CREATE <index type> INDEX name
+            ON <table> USING <method> (column1, column2, ...)
+        > B-TREE
+            # default
+            # Best used for comparisons with < <= = > >= BETWEEN IN IS NULL IS NOT NULL
+        > HASH
+            # Can only handle equality operations =
+            # SUPER FAST w/ equality
+        > GIN (Generalized Inverted Index)
+            # Best used when multiple values are stored in a single field - Arrays
+        > GIST (Generalized Search Tree)
+            # Useful for indexing geometric data
+            # Useful for full text search

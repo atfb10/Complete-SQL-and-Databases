@@ -179,3 +179,38 @@ NULL IF
     * If value 1 = value 2, return NULL
     * IF sides do not match, return left side
     * NULLIF ('abc', 'def') -> abc
+
+VIEWS
+    * Allow you store and query previously run queries 
+    * Views are the ouptut of the query we ran 
+    * Views Act like tables, you can query them
+    * 2 types
+        1. Materialized - stores the data physically and periodically updates it when tables change
+        2. Non-Materialized - query gets re-run each time the view is called on
+            > Take very little space to store. We store the definition of a view, not all of the data that it returns
+    * Syntax 
+        > CREATE VIEW view_name AS query;
+        > CREATE OR REPLACE VIEW view_name AS query;
+        > ALTER VIEW view_name RENAME TO view_name;
+        > DROP VIEW IF EXISTS view_name;
+
+    * Example: Get most recent salary of employee
+        -- view
+        CREATE OR REPLACE VIEW last_salary_change AS
+        SELECT e.emp_no,
+            MAX(s.from_date)
+        FROM salaries AS s
+        INNER JOIN employees as e ON e.emp_no = s.emp_no
+        INNER JOIN dept_emp as de ON de.emp_no = s.emp_no
+        INNER JOIN departments as d ON d.dept_no = de.dept_no
+        GROUP BY e.emp_no
+        ORDER BY e.emp_no;
+
+        -- query 
+        SELECT  * 
+        FROM salaries as s
+        JOIN last_salary_change as lsc USING(emp_no)
+        WHERE from_date = lsc.max
+        ORDER BY s.emp_no;
+
+    * FEYMAN: 

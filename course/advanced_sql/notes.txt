@@ -1,6 +1,8 @@
 Adam Forestier
 May 29, 2023
 
+EXPLAIN ANALYZE - can put before any query and it shows information about the query such as execution time
+
 Group By
     * Summarize or aggregate data by groups
     * Group By splits data into groups so we can apply functions against the group rather than the entire table
@@ -213,4 +215,126 @@ VIEWS
         WHERE from_date = lsc.max
         ORDER BY s.emp_no;
 
-    * FEYMAN: 
+    * FEYMAN: Views allow one to save a new table from a query, and allow one to make queries against it
+
+Indexing
+    * Index - construct to improve querying performance
+            - pointer to data in a table
+            - can think of it like a table of contents to find where a piece of data is
+        > It does slow down data insertion and updates
+
+    * Types:
+        > single-column
+            # Most frequently used column in queries
+            # Retrieving data that satisfies one condition
+            # EXAMPLE
+                CREATE INDEX idx_name
+                ON city("name");
+        > multi-column
+            # Most frequently uses columns in queries
+            # Retrieving data that satisfies multiple conditions
+        > unique
+            # ALWAYS use when column contains only unique values
+        > partial
+            # Over subset of a table
+            CREATE INDEX partial_idx_code
+            ON city(countrycode) WHERE countrycode IN('TUN','BE','NL');
+        > implicit
+            # indexes done by default (primary key, unique key - foreign key)
+
+    * Syntax
+        > CREATE <index type> INDEX name
+          ON <table> (column1, column2, ...)
+        > DROP INDEX name
+
+    * When to use:
+        1. FOREIGN KEYS
+        2. PRIMARY KEYS AND UNIQUE COLUMNS 
+        3. Columns that end up in the ORDER BY/WHERE clause often
+
+    * When not to use:
+        1. Don't do it, just to do it
+        2. Small tables
+        3. Tables that are updated frequently
+        4. Columns that contain null values 
+        5. Columns that have large values
+
+    * Index Algorithms - Each index type uses a different algorithm
+        > Syntax
+            CREATE <index type> INDEX name
+            ON <table> USING <method> (column1, column2, ...)
+        > B-TREE
+            # default
+            # Best used for comparisons with < <= = > >= BETWEEN IN IS NULL IS NOT NULL
+        > HASH
+            # Can only handle equality operations =
+            # SUPER FAST w/ equality
+        > GIN (Generalized Inverted Index)
+            # Best used when multiple values are stored in a single field - Arrays
+        > GIST (Generalized Search Tree)
+            # Useful for indexing geometric data
+            # Useful for full text search
+
+Subquery
+    * Query inside of a query. Allows you to build complex queries 
+    * Also known as inner queries or inner SELECT
+    * It is most often found in the WHERE clause. Can also use it in SELECT, FROM, & HAVING
+        > Must return single record in SELECT statement
+            # Example:
+                SELECT title, price,
+                    (SELECT AVG(price) FROM products) AS "Global Avg Product Price"
+                FROM products
+                ORDER BY price;
+        > functions similar to VIEW in FROM statement
+        > Must return single record in HAVING statement
+    * Subquery can only return single column
+
+    * Subquery vs JOIN
+        > Both
+            # Combine data from diffrent sources
+        > Different
+            # Subqueries could stand as queries on their own
+            # Joins combine rows from one or more tables on a match condition
+            # Subqueries can return single result or row set
+            # Joins can only return a row set
+            # Subquery results are immediately used
+            # A joined table can be used in the outer query
+
+    * Subquery guidelines
+        > Must be enclosed in parentheses
+        > Must be on right side of comparison operators
+        > Cannot manipulate their results internally
+        > Use single row comparisons for single row results
+        > Subqueries that return null may not return results
+
+    * Subquery types
+        > Single row
+        > multiple row
+        > multiple column 
+        > correlated
+        > nested
+
+    * Subquery Operators
+        > EXISTS - Check if Subquery returns any rows
+        > IN - Check if value is equal to any rows in the return
+        > NOT IN - Check if value is not equal to any rows in the return
+        > ANY/SOME - Check each row against operator and if any comparison matches, return True
+            # Example:
+                SELECT prod_id
+                FROM products
+                WHERE category = ANY(
+                    SELECT category FROM categories
+                    WHERE categoryname IN('comedy', 'family', 'classics');
+                )
+        > ALL - Check each row against operator and if all comparison matches, return True
+        > Single Value comparisons
+
+
+    * Example:
+        -- show all employees older than average age
+        SELECT *, 
+            AGE(birth_date) as "Age", 
+            (SELECT AVG(age(birth_date)) FROM employees) AS "Average Age in Company"
+        FROM employees
+        WHERE AGE(birth_date) > (SELECT AVG(age(birth_date)) FROM employees)
+        ORDER BY "Age";

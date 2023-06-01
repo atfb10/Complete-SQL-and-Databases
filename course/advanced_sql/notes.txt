@@ -274,3 +274,67 @@ Indexing
         > GIST (Generalized Search Tree)
             # Useful for indexing geometric data
             # Useful for full text search
+
+Subquery
+    * Query inside of a query. Allows you to build complex queries 
+    * Also known as inner queries or inner SELECT
+    * It is most often found in the WHERE clause. Can also use it in SELECT, FROM, & HAVING
+        > Must return single record in SELECT statement
+            # Example:
+                SELECT title, price,
+                    (SELECT AVG(price) FROM products) AS "Global Avg Product Price"
+                FROM products
+                ORDER BY price;
+        > functions similar to VIEW in FROM statement
+        > Must return single record in HAVING statement
+    * Subquery can only return single column
+
+    * Subquery vs JOIN
+        > Both
+            # Combine data from diffrent sources
+        > Different
+            # Subqueries could stand as queries on their own
+            # Joins combine rows from one or more tables on a match condition
+            # Subqueries can return single result or row set
+            # Joins can only return a row set
+            # Subquery results are immediately used
+            # A joined table can be used in the outer query
+
+    * Subquery guidelines
+        > Must be enclosed in parentheses
+        > Must be on right side of comparison operators
+        > Cannot manipulate their results internally
+        > Use single row comparisons for single row results
+        > Subqueries that return null may not return results
+
+    * Subquery types
+        > Single row
+        > multiple row
+        > multiple column 
+        > correlated
+        > nested
+
+    * Subquery Operators
+        > EXISTS - Check if Subquery returns any rows
+        > IN - Check if value is equal to any rows in the return
+        > NOT IN - Check if value is not equal to any rows in the return
+        > ANY/SOME - Check each row against operator and if any comparison matches, return True
+            # Example:
+                SELECT prod_id
+                FROM products
+                WHERE category = ANY(
+                    SELECT category FROM categories
+                    WHERE categoryname IN('comedy', 'family', 'classics');
+                )
+        > ALL - Check each row against operator and if all comparison matches, return True
+        > Single Value comparisons
+
+
+    * Example:
+        -- show all employees older than average age
+        SELECT *, 
+            AGE(birth_date) as "Age", 
+            (SELECT AVG(age(birth_date)) FROM employees) AS "Average Age in Company"
+        FROM employees
+        WHERE AGE(birth_date) > (SELECT AVG(age(birth_date)) FROM employees)
+        ORDER BY "Age";

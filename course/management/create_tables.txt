@@ -1,0 +1,47 @@
+Adam Forestier
+June 7, 2023
+
+Data Models and Naming Conventions
+    * Model is a design that is used to visualize what we are going to build
+        > Entity Relationship Diagram
+    Naming Conventions
+        > Table Names: Must be singlular
+            # Example: Student
+        > Columns: should be lowercase w/ underscores
+            # Example: first_name
+        
+Create Table Syntax:
+    CREATE TABLE name (
+        col TYPE [CONSTRAINT]
+    );
+
+Temporary Table
+    * Dropped at end of session
+    * Visible only to the creator
+    * Why use?
+        > If you're writing intensive queries against a data set it might be beneficial to create another table off another table
+            # They behave just like normal tables
+            # Postgres ally less "rules" (logging, transaction locking, etc.) to temporary tables making them execute more quickly
+            # You have full access rights to the data, if you otherwise didn't, so that you can test things out
+    * Syntax: CREATE TEMPORARY TABLE name (columns) [INHERITS existing_table];
+
+Constraints - Tool to Apply validation maethods against data that will be inserted
+    * Column Constraint - Part of a column definition
+        > NOT NULL
+        > PRIMARY KEY 
+        > UNIQUE 
+        > CHECK - Apply a special condition check against the values in the column
+        > REFERENCES - Constrain the values of the column to only be values that exist in the column in another table
+            # FOREIGN KEY
+    
+    * Table Constraints - Can encompass more than one column
+        > UNIQUE 
+        > PRIMARY KEY
+        > CHECK - condition to check
+        > REFERENCES - FOREIGN KEY relationship to a column
+        
+        > syntax (put at bottom of create table)
+            CONSTRAINT constraint_name TYPE_OF_CONSTRAINT (column or columns being constrained)
+
+        > Every column constraint can be written as a table constraint
+        > If constraint encompasses only 1 column, write as column constraint, else consider the table constraint

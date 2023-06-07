@@ -1,0 +1,57 @@
+Adam Forestier
+June 7, 2023
+
+Template Database
+    * Always have 3 default databases
+        1. postgres - created by default
+        2. template0 - used to create template1. NEVER CHANGE IT
+        3. template1 - Any changes made to template1 are automatically applied to all newly created databases!
+            > NOTE: Because template1 is the default template; if it is being accessed/connected to, no new databases can be created until the connection is closed!
+
+Create Database
+    CREATE DATABASE name
+        WITH <options>
+    * default
+        > Template: template01
+        > Encoding: UTF8
+        > CONNECTION_LIMIT: 100
+        > OWNER: Current User
+
+DB Organization
+    * Postgres Schemas
+        > Like a box in which you can organize tables, views, indexes, etc.
+        > By default each database gets a "public" schema. 
+            # IMPORTANT: Unless you specify a schema, the default is always assumed to be public
+        > CREATE SCHEMA name 
+        > Schema reasons:
+            # Allow many users to use one db without interfering with each other
+            # Organize db objects into logical groups to make them more manageable
+            # 3rd party applications can be put into seperate schemas so that they do not collide with the names of other objects
+    * ONLY CREATE new databases if data is completely unrelated. If related ALWAYS USE SCHEMAS so that you can query the data
+
+Postgres Roles
+    * Can be a user or a group
+    * Roles have ability to grant membership to another role
+    
+    * Role Attributes
+        > Priviledges of a role are determined in part by its attribute
+        > Common Attributes
+            # LOGIN PRIVILEDGE - same thing as db user
+            # SUPERUER STATUS - bypasses all permission checks
+            # DATABASE CREATION - given permission to create databases
+            # ROLE CREATION - given permission to create roles
+            # PASSWORD - only matters when LOGIN PRIVILEDGE
+    
+    * Create Role: CREATE ROLE readonly WITH LOGIN ENCRYPTED PASSWORD 'readonly'
+        > ALWAYS ENCRYPT when storing a role that can log in
+        > By default only the creator of db or superuser has access to its objects
+
+Postgres Priviledges
+    * By default objects are only available to those who created 
+    * Priviledges must be granted for roles and users to give access to certain data
+    * Syntax:
+        > GRANT ALL PRIVLEDGES ON table TO user ;
+        > GRANT ALL PRIVLEDGES ON TABLES [IN SCHEMA schema] TO user;
+        > GRANT [SELECT, UPDATE, INSERT, ...] ON table [IN SCHEMA schema] TO user;
+
+    * Rule of Thumb: Start with least amount of privilege possible and give more as required. "Principle of Least Privilege"

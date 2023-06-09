@@ -1,0 +1,50 @@
+Adam Forestier
+June 8, 2023
+
+Planning Macro Steps
+    1. Backup Plan
+        > Determine what needs to be backed up?
+            # Full backup (less often)
+            # Incremental - everything that changed since the last incremental backup (or full backup if no incremental yet) (often)
+            # Differential - everything that changed since the first full backup (often)
+            # Transaction log - backup of data transactions that have occurred (a lot)
+        > What's the appropriate way to back up? 
+            # backup OS
+            # backup DB
+            # backup Hard-drives
+        > How frequently are you going to back up?
+        > Decide where you are going to store backups
+        > Have a retention policy for the backup
+    2. Disaster Recovery Plan
+    3. Test your Plans
+
+What Can Go Wrong?
+    1. Hardware failures
+    2. Viruses
+    3. Power Outages
+    4. Hackers
+    5. Human Errors
+
+SQL DUMP
+    * How to create backups in POSTGRES - SUPER DUPER EASY TO DO IN GUI such as ValentinaStudio
+    * pgBackRest
+        > Simple and reliable backup solution; 3rd party
+
+Restore Database (Load DUMP)
+    * SUPER DUPER EASY TO DO IN GUI such as ValentinaStudio
+    * IF fails, use the command line & PSQL
+
+Transaction - Unit of instructions (Query for instance)
+    * DBMS Has a mechanism in place to manage transactions
+    
+    * Steps
+    BEGIN; -> begins a transaction 
+    <transaction>; -> partially committed, locks resource
+    option1 ROLLBACK; -> Uncommit changes
+    option2 END; -> commit changes
+
+    * To maintain integrity of db, all transactions must obey acid properties
+        > Atomicity: Either execute entirely, or not at all
+        > Consistency: Each transaction should leave the database in a consistent state (commit or rollback)
+        > Isolation: Transaction should be executed in isolation from other transactions
+        > Durability: After completion of a transaction, the changes in the database should persist

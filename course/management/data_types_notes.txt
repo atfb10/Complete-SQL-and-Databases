@@ -1,0 +1,47 @@
+Adam Forestier
+June 7, 2023
+
+Core Types (There are so many types lol)
+    * Numeric
+    * Arrays
+    * Character
+    * Datetime
+    * Boolean 
+    * UUID
+
+Boolean
+    * Can do smart conversions!
+    * TRUE: 1, yes, t, true
+    * False: 0, no, f, false
+    * NULL
+
+Character
+    * CHAR (N) - Fixed length with space. Fills empty space, with spaces 
+    * VARCHAR (N) - Variable length with no padding. Space saving!
+    * TEXT - Unlimited length text
+
+Numeric
+    * Integer - Whole number
+        > SMALLINT: -32,768 to 32,767
+        > INT: -2,147,483,648 to 2,147,483,647
+        > BIGINT: -9223372036854775808 to 9223372036854775807
+    * Float - decimals
+        > Float4 - single precision (6 digit precision)
+        > Float8 - double precision (15 digit precision)
+        > Decimal/Numeric - Up to 131072 digits before decimal point; up to 131071 digits after the decimal point
+
+Arrays - Group of elements of the same type
+    * Denoted by bracket syntex [1, 2, 3]
+    * Syntax: 
+        > when creating table
+            CREATE TABLE example (
+                hi smallint,
+                there varchar(20),
+                my_arr float4[]
+            );
+        > When INSERTING 
+            INSERT INTO example (
+                21,
+                'scooby',
+                ARRAY[1.23, 2.11, 81.1, 1.01]
+            );

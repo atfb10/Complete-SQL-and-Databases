@@ -1,0 +1,59 @@
+Adam Forestier
+June 13, 2023
+
+SDLC - Software Development Life Cycle
+    1. System Planning & Selection - What do we want?
+        > Requirements Analysis
+    2. System Analysis - What do we need?
+        > Taking in requirements and determining if it can be done on time and on budget
+    3. System Design - How do we do it?
+        > System architecture
+    4. System Implementation & Operation - Use it
+        > Build, Test, Use
+
+Top Down
+    * Optimal choice when creating a new database
+        > You start from 0
+        > All requirements all gathered up front
+    * GOAL: Create data model based on requirements
+
+Bottom Up
+    * There's an existing system or specific data in place
+    * Optimal choice when migrating an existing database 
+
+ER Model - Entity Relationship Model (Diagram)
+    * It is a diagram that functions as a way to structure high-level relationships
+    * Steps
+        1. Determine Entities (Tables)
+            > What is an entity?
+                # Person, place or thing
+                # Has a singular name
+                # Has an identifier
+                # Should contain more than 1 instance of data
+        2. Determine Attributes
+            > Properties
+                # Property of entity
+                # Must be atomic
+                # Single/multivalued
+                # Keys
+
+Relation Schema
+    * Representation of data going into table
+
+Relation Instance
+    * Data that is to go into the relation instance
+
+Relation Keys
+    * Super Key: Any combination of attributes that can uniquely identify a row
+    * Candidate Key: Minimal amount of attributes to uniquely identify a row
+    * Primary Key: column that uniquely identifies the relationship
+    * Foreign Key: References a key from a different table
+    * Compound Key: Key that uses multiple columns to uniquely identify a row, and DOES use a foreign key
+    * Composite Key: Key that uses multiple columns to uniquely identify a row, but does NOT use a foreign key
+    * Surrogate Key: Column that uniquely identifies a row, but has nothing to do with the information of a row.
+        # EXAMPLE: UUID
+
+Relationships
+    * One to One
+    * One to Many
+    * Many to Many

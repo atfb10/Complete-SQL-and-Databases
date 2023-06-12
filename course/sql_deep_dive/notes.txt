@@ -59,7 +59,7 @@ Operator Precedence (in order)
     7. AND
     8. OR
 
-    * If the operators have equal precedence, then the operators ar evaluated directionally, from left to right or right to left
+    * If the operators have equal precedence, then the operators are evaluated directionally, from left to right or right to left
         > All are left to right except:
             1. addition & subtraction
             2. NOT 

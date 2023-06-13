@@ -1,0 +1,19 @@
+Adam Forestier
+June 13, 2023
+
+Scalability
+    * Vertical - Adding more physical hardware to increase capabilities to machine (more RAM, more disc space, etc.)
+    * Horizontal - Adding more phyiscal machine to increase capabilities
+
+Sharding
+    * Splitting data across multiple datas
+    * EX: splitting users up on different databases by alphabetic order (A - J on one machine, K - S on one machine, T - Z on a third machine)
+
+Replication
+    * Have db backed up by another db in another location
+    * Synchronous - replication occurs at same time
+    * Asynchronous - replication occurs at different times 
+
+Backups
+    * Similar to replication, but does not occur simulataneously. Occurs at scheduled time; like 1x per night
+    * Dump data to SQL file in safe location

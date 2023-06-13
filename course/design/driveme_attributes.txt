@@ -1,0 +1,33 @@
+School:
+    - school_id
+    - street_name
+    - street_num
+    - postal_code
+    - state
+    - city
+
+Teacher:
+    - teacher_id
+    - first_name
+    - last_name
+    - hire_date
+    - school_id
+
+Student:
+    - student_id
+    - first_name
+    - last_name
+    - school_id
+
+Exam:
+    - student_id
+    - teacher_id
+    - date_taken
+    - passed
+    - lesson_id
+
+Lesson:
+    - lesson_id
+    - student_id
+    - package
+    - date_of_enrollment

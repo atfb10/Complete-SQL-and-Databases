@@ -114,7 +114,7 @@ Window Functions
             FROM orders
             ORDER BY customerid;
         > FIRST_VALUE - returns the first value in the partition
-            # Example: I want to know how my price compares to teh item with the lowest price in the same category
+            # Example: I want to know how my price compares to the item with the lowest price in the same category
                 SELECT prod_id, 
                     price, 
                     category,

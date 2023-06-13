@@ -1,0 +1,115 @@
+Adam Forestier
+June 13
+, 2023
+
+SDLC - Software Development Life Cycle
+    1. System Planning & Selection - What do we want?
+        > Requirements Analysis
+    2. System Analysis - What do we need?
+        > Taking in requirements and determining if it can be done on time and on budget
+    3. System Design - How do we do it?
+        > System architecture
+    4. System Implementation & Operation - Use it
+        > Build, Test, Use
+
+Top Down
+    * Optimal choice when creating a new database
+        > You start from 0
+        > All requirements all gathered up front
+    * GOAL: Create data model based on requirements
+
+Bottom Up
+    * There's an existing system or specific data in place
+    * Optimal choice when migrating an existing database 
+    * Steps
+        1. Identify data (attributes)
+        2. Group them (entities)
+
+ER Model - Entity Relationship Model (Diagram)
+    * It is a diagram that functions as a way to structure high-level relationships
+    * Steps
+        1. Determine Entities (Tables)
+            > What is an entity?
+                # Person, place or thing
+                # Has a singular name
+                # Has an identifier
+                # Should contain more than 1 instance of data
+        2. Determine Attributes
+            > Properties
+                # Property of entity
+                # Must be atomic
+                # Single/multivalued
+                # Keys
+        3. Determine Relationships between Entities
+            > One to One 
+            > One to Many
+            > Many to Many
+                # Do not store many to many relationships. Always try to resolve many to many
+                # Creates insane overhead
+                # KEY: Solve by creating a "Join Table" AKA: "Intermediate Entities"
+            > Crow's Feet - Line that tells you relationship between Entities
+                # First part depicts relationship (one or many)
+                # Second part depicts constraint (0 or more, 1 or more, 1 and only 1, 0 or 1) 
+            > Describe relationship as a verb phrase ("A student takes courses")
+        4. Solve many to many Relationships
+        5. Assign entities to subject areas
+            > All entities must belong to 1
+            > An entity can only belong to 1
+            > You can nest subject areas
+
+Relation Schema
+    * Representation of data going into table
+
+Relation Instance
+    * Data that is to go into the relation instance
+
+Relation Keys
+    * Super Key: Any combination of attributes that can uniquely identify a row
+    * Candidate Key: Minimal amount of attributes to uniquely identify a row
+    * Primary Key: column that uniquely identifies the relationship
+    * Foreign Key: References a key from a different table
+    * Compound Key: Key that uses multiple columns to uniquely identify a row, and DOES use a foreign key
+    * Composite Key: Key that uses multiple columns to uniquely identify a row, but does NOT use a foreign key
+    * Surrogate Key: Column that uniquely identifies a row, but has nothing to do with the information of a row.
+        # EXAMPLE: UUID
+
+Anomolies
+    * 3 types
+        1. Update Anomolies
+        2. Insert Anomolies
+        3. Delete Anomolies
+    * Normalization handles this issue 
+
+Functional Dependencies - Exists when a relationship between 2 attributes allows you to uniquely determine the corresponding attribute's values
+    * "Based on the value of B, you can determine the value of A"
+    * Example. Based on student_id, you can determine the student's name. student_id -> full_name 
+
+Normalization - techniques to reduce anomolies and redunancy
+    * Normal Forms - each normal form aims to further seperate relationships into smaller instances as to create less redunancy and anomolies
+        > 0NF to 1NF
+            # 0NF
+                - Repeating groups of fields
+                - Positional dependence of data
+                - Non-Atomic data
+            # 1NF
+                - Eliminate repeating columns of the same data 
+                - Each attribute should contain a single value (atomic)
+                - Determine Primary Key
+        > 1NF to 2NF
+            # 2NF
+                - It is in 1NF
+                - All non-key attributes are fully functionally dependent on the primary key
+        > 2NF to 3NF
+            # 3NF   
+                - It is in 2NF 
+                - No transitive dependencies
+                    * transitive dependency: A is functionally dependent on B, B is functionally dependent on C, C is transitively dependent on A, via B. B -> A, C -> B, C ~> A
+        > Boyce Codd Normal Form 
+            # 0 to BCNF are the most common normal forms to run through
+            # BCNF 
+                - It is in 3NF 
+                - For any dependency A -> B, A should be a super key
+            # Most relationships in 3NF are also in BCNF, but not all
+                - 3NF allows attributes to be part of a candidate key that is not the primary key - BCNF does not
+        > 4NF & 5NF
+            # Not useful in most cases. Overly normalizes/reduces at the cost of functionality
